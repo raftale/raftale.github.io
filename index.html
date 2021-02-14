@@ -64,6 +64,45 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-访问github.io" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/14/%E8%AE%BF%E9%97%AEgithub.io/" class="article-date">
+  <time datetime="2021-02-14T15:43:18.267Z" itemprop="datePublished">2021-02-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>无法访问github.io</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>运营商污染DNS，因为ip是通过dns查找的，dns被污染了ip自然就访问不对了。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="1-查找真正的IP"><a href="#1-查找真正的IP" class="headerlink" title="1. 查找真正的IP"></a>1. 查找真正的IP</h3><ol>
+<li><a href="https://link.zhihu.com/?target=https://www.ipaddress.com/">https://www.ipaddress.com</a></li>
+<li><a target="_blank" rel="noopener" href="http://tool.chinaz.com/dns/?type=1&amp;host=github.io&amp;ip=">http://tool.chinaz.com/dns/?type=1&amp;host=github.io&amp;ip=</a></li>
+</ol>
+<p>输入github.io，查找出对应Ip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># github.io</span><br><span class="line">185.199.108.153 github.io</span><br><span class="line">185.199.109.153 github.io</span><br><span class="line">185.199.110.153 github.io</span><br><span class="line">185.199.111.153 github.io</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-修改host"><a href="#2-修改host" class="headerlink" title="2. 修改host"></a>2. 修改host</h3><p>hosts文件位置：C:\Windows\System32\drivers\etc\hosts</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210214213149123.png" alt="image-20210214213149123"></p>
+<p>然后刷新DNS缓存：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ipconfig</span> /flushdns</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://raftale.github.io/2021/02/14/%E8%AE%BF%E9%97%AEgithub.io/" data-id="ckl5bjbos0006e0v6gtox0o2l" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-各种注解总结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/02/14/%E5%90%84%E7%A7%8D%E6%B3%A8%E8%A7%A3%E6%80%BB%E7%BB%93/" class="article-date">
@@ -82,7 +121,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://raftale.github.io/2021/02/14/%E5%90%84%E7%A7%8D%E6%B3%A8%E8%A7%A3%E6%80%BB%E7%BB%93/" data-id="ckl5ayo1n00055ov62q957c8p" class="article-share-link">Share</a>
+      <a data-url="https://raftale.github.io/2021/02/14/%E5%90%84%E7%A7%8D%E6%B3%A8%E8%A7%A3%E6%80%BB%E7%BB%93/" data-id="ckl5bjbor0005e0v6btt72y55" class="article-share-link">Share</a>
       
       
     </footer>
@@ -171,7 +210,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://raftale.github.io/2021/02/14/ubuntu%E5%AE%89%E8%A3%85/" data-id="ckl5ayo1m00045ov6fakwb88g" class="article-share-link">Share</a>
+      <a data-url="https://raftale.github.io/2021/02/14/ubuntu%E5%AE%89%E8%A3%85/" data-id="ckl5bjboq0004e0v6ch3k2jmq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -197,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://raftale.github.io/2021/02/14/IOC/" data-id="ckl5ayo1k00015ov6axkp7jbh" class="article-share-link">Share</a>
+      <a data-url="https://raftale.github.io/2021/02/14/IOC/" data-id="ckl5bjboo0001e0v64szq481n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -236,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://raftale.github.io/2021/02/14/Stream/" data-id="ckl5ayo1l00025ov6bksl5vzm" class="article-share-link">Share</a>
+      <a data-url="https://raftale.github.io/2021/02/14/Stream/" data-id="ckl5bjbop0002e0v623fpfdy7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -281,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://raftale.github.io/2021/02/14/hello-world/" data-id="ckl5ayo1m00035ov6cxbv81bh" class="article-share-link">Share</a>
+      <a data-url="https://raftale.github.io/2021/02/14/hello-world/" data-id="ckl5bjboq0003e0v646epdsgq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -341,7 +380,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://raftale.github.io/2021/02/14/AOP/" data-id="ckl5ayo1g00005ov65d9571v5" class="article-share-link">Share</a>
+      <a data-url="https://raftale.github.io/2021/02/14/AOP/" data-id="ckl5bjbok0000e0v6e9nd33wf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -382,6 +421,10 @@
       <ul>
         
           <li>
+            <a href="/2021/02/14/%E8%AE%BF%E9%97%AEgithub.io/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2021/02/14/%E5%90%84%E7%A7%8D%E6%B3%A8%E8%A7%A3%E6%80%BB%E7%BB%93/">(no title)</a>
           </li>
         
@@ -395,10 +438,6 @@
         
           <li>
             <a href="/2021/02/14/Stream/">Stream流</a>
-          </li>
-        
-          <li>
-            <a href="/2021/02/14/hello-world/">Hello World 测试</a>
           </li>
         
       </ul>
