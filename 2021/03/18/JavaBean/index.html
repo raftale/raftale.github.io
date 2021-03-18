@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Spring IoC依赖查找 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="上下文上下文Context。 程序执行的时候都会需要一个上下文，这个上下文由多种数据结果组成，可以提供我们运行时需要的一些数据和保存运行时的一些数据。所以context可以理解对一个程序运行时所需要的一些数据结构的抽象表达。 IOC：把对象的创建、管理的控制权都交给Spring容器， Spring的IOC容器也是程序，它的执行需要依赖一个上下文。 Spring Context包括什么：  Defa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring IoC依赖查找">
+<meta property="og:url" content="https://raftale.github.io/2021/03/18/JavaBean/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="上下文上下文Context。 程序执行的时候都会需要一个上下文，这个上下文由多种数据结果组成，可以提供我们运行时需要的一些数据和保存运行时的一些数据。所以context可以理解对一个程序运行时所需要的一些数据结构的抽象表达。 IOC：把对象的创建、管理的控制权都交给Spring容器， Spring的IOC容器也是程序，它的执行需要依赖一个上下文。 Spring Context包括什么：  Defa">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-18T14:32:17.000Z">
+<meta property="article:modified_time" content="2021-03-18T16:06:30.295Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://raftale.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JavaBean" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/18/JavaBean/" class="article-date">
+  <time datetime="2021-03-18T14:32:17.000Z" itemprop="datePublished">2021-03-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring IoC依赖查找
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="上下文"><a href="#上下文" class="headerlink" title="上下文"></a>上下文</h2><p>上下文Context。</p>
+<p>程序执行的时候都会需要一个上下文，这个上下文由多种数据结果组成，可以提供我们运行时需要的一些数据和保存运行时的一些数据。所以context可以理解对一个程序运行时所需要的一些数据结构的抽象表达。</p>
+<p>IOC：把对象的创建、管理的控制权都交给Spring容器，</p>
+<p>Spring的IOC容器也是程序，它的执行需要依赖一个上下文。</p>
+<p>Spring Context包括什么：</p>
+<ol>
+<li>DefaultListableBeanFactory：ICO容器，它里面有很多map、list。Spring 帮我们创建的 singleton 类型的 bean 就存放在其中一个 map 中。我们定义的监听器（ApplicationListener）也被放到一个 Set 集合中。</li>
+<li>BeanDefinitionRegistry：把一个 BeanDefinition 放到 beanDefinitionMap。</li>
+<li>AnnotatedBeanDefinitionReader：针对 AnnotationConfigApplicationContext 而言。一个 BeanDefinition 读取器。</li>
+<li>扩展点集合：存放 spring 扩展点（主要是 BeanFactoryPostProcessor、BeanPostProcessor）接口的 list 集合。</li>
+</ol>
+<p>言而总之：</p>
+<p>我们的目的是：将需要IOC 容器管理的对象（bean）、bean之间的协作关系配置好，然后利用应用上下文对象加载进我们的spring容器，容器就能够为程序提供对象管理服务了。</p>
+<ul>
+<li>配置上下文</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;user&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.geekbang.thinking.in.spring.ioc.overview.domain.User&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;小马哥&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>应用上下文：</p>
+<p>可以理解为spring容器的一种实现，即操作容器的容器类对象。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加载项目中的spring配置文件到容器</span></span><br><span class="line">BeanFactory beanFactory = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;classpath:/META-INF/dependency-lookup-context.xml&quot;</span>);</span><br><span class="line"><span class="comment">// 调用上下文的方法获取容器中的Bean</span></span><br><span class="line">User user = (User) beanFactory.getBean(<span class="string">&quot;user&quot;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>多种类型的上下文抽象接口，即容器的实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从一个或多个基于java的配置类中加载上下文定义，适用于java注解的方式；</span></span><br><span class="line">AnnotationConfigApplicationContext</span><br><span class="line"><span class="comment">// 从类路径下的一个或多个xml配置文件中加载上下文定义，适用于xml配置的方式；</span></span><br><span class="line">ClassPathXmlApplicationContext</span><br><span class="line"><span class="comment">// 从文件系统下的一个或多个xml配置文件中加载上下文定义，也就是说系统盘符中加载xml配置文件；</span></span><br><span class="line">FileSystemXmlApplicationContext</span><br><span class="line"><span class="comment">// 专门为web应用准备的，适用于注解方式；</span></span><br><span class="line">AnnotationConfigWebApplicationContext</span><br><span class="line"><span class="comment">// 从web应用下的一个或多个xml配置文件加载上下文定义，适用于xml配置方式。</span></span><br><span class="line">XmlWebApplicationContext</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="根据Bean名称查找"><a href="#根据Bean名称查找" class="headerlink" title="根据Bean名称查找"></a>根据Bean名称查找</h2><p>根据bean的id查找</p>
+<h3 id="实时查找"><a href="#实时查找" class="headerlink" title="实时查找"></a>实时查找</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 配置 XML 配置文件</span></span><br><span class="line"><span class="comment">// 启动 Spring 应用上下文</span></span><br><span class="line"><span class="comment">// 从容器中获取bean</span></span><br><span class="line">BeanFactory beanFactory = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;classpath:/META-INF/dependency-lookup-context.xml&quot;</span>);</span><br><span class="line">User user = (User) beanFactory.getBean(<span class="string">&quot;user&quot;</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;实时查找：&quot;</span> + user);</span><br></pre></td></tr></table></figure>
+<h3 id="延迟查找"><a href="#延迟查找" class="headerlink" title="延迟查找"></a>延迟查找</h3><p>延迟依赖查找主要用于获取 BeanFactory 后，ObjectFactory 对象并不是直接返回了实际的 Bean，而是一个 Bean 的查找代理。当得到 ObjectFactory 对象时，相当于 Bean 没有被创建，只有当 getObject() 方法时，才会触发 Bean 实例化等生命周期。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ObjectFactory&lt;User&gt; objectFactory = (ObjectFactory&lt;User&gt;) beanFactory.getBean(<span class="string">&quot;objectFactory&quot;</span>);</span><br><span class="line">User user = objectFactory.getObject();</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="根据Bean类型查找"><a href="#根据Bean类型查找" class="headerlink" title="根据Bean类型查找"></a>根据Bean类型查找</h2><p>根据bean的class查找</p>
+<h3 id="单个Bean对象"><a href="#单个Bean对象" class="headerlink" title="单个Bean对象"></a>单个Bean对象</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据名称查找</span></span><br><span class="line">User user = beanFactory.getBean(User.class);</span><br></pre></td></tr></table></figure>
+<h3 id="集合Bean对象"><a href="#集合Bean对象" class="headerlink" title="集合Bean对象"></a>集合Bean对象</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (beanFactory <span class="keyword">instanceof</span> ListableBeanFactory) &#123;</span><br><span class="line">    ListableBeanFactory listableBeanFactory = (ListableBeanFactory) beanFactory;</span><br><span class="line">    Map&lt;String, User&gt; users = listableBeanFactory.getBeansOfType(User.class);</span><br><span class="line">    System.out.println(<span class="string">&quot;查找到的所有的 User 集合对象：&quot;</span> + users);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="根据Bean名称-类型查找"><a href="#根据Bean名称-类型查找" class="headerlink" title="根据Bean名称 + 类型查找"></a>根据Bean名称 + 类型查找</h2><h2 id="根据Java注解查找"><a href="#根据Java注解查找" class="headerlink" title="根据Java注解查找"></a>根据Java注解查找</h2><p>通过</p>
+<h3 id="单个Bean对象-1"><a href="#单个Bean对象-1" class="headerlink" title="单个Bean对象"></a>单个Bean对象</h3><h3 id="集合Bean对象-1"><a href="#集合Bean对象-1" class="headerlink" title="集合Bean对象"></a>集合Bean对象</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://raftale.github.io/2021/03/18/JavaBean/" data-id="ckmf2hmch00064wv6gzuy1ypr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/09/IOC/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">IOC</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/" rel="tag">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-%E7%89%B9%E6%80%A7%E6%80%BB%E8%A7%88/" rel="tag">spring 特性总览</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Spring/" style="font-size: 20px;">Spring</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/spring-%E7%89%B9%E6%80%A7%E6%80%BB%E8%A7%88/" style="font-size: 10px;">spring 特性总览</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/03/18/JavaBean/">Spring IoC依赖查找</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/09/IOC/">IOC</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/17/Java%E7%89%88%E6%9C%AC%E4%BB%A5%E6%9D%A5%E4%B8%8E%E6%94%AF%E6%8C%81/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/17/spring%E6%A0%B8%E5%BF%83/">spring核心</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/17/AOP%E5%9F%BA%E7%A1%80/">AOP基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
