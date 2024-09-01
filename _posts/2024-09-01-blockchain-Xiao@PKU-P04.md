@@ -3,7 +3,8 @@ title: "区块链技术与应用 - P04 - BTC共识协议"
 layout: post
 author: "raftale"
 header-style: text
-hidden: true
+hidden: false
+published: true
 tags:
   - blockchain
 ---
