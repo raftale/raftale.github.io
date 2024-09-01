@@ -1,9 +1,9 @@
 {
-    "name": "hux-blog",
-    "title": "Hux Blog",
-    "author": "Hux <huxpro@gmail.com>",
+    "name": "raftale-blog",
+    "title": "Raftale Blog",
+    "author": "Raftale <rafftale@gmail.com>",
     "version": "1.8.2",
-    "homepage": "http://huxpro.github.io",
+    "homepage": "https://raftale.github.io",
     "repository": {
         "type": "git",
         "url": "https://github.com/Huxpro/huxpro.github.io"
