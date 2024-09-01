@@ -30,6 +30,7 @@ Coq followed Haskell's lead as well, but
 > because Coq's type system is so much richer than that of Haskell, and because typeclasses in Coq are used to automatically construct not only programs but also proofs, Coq's presentation of typeclasses is quite a bit less "transparent"
 
 
+![](../../img/avatar-hux-home.jpg)
 Basics
 ------
 
