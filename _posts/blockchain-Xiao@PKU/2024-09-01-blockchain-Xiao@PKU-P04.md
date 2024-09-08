@@ -108,7 +108,7 @@ A 转给B的交易中，输入部分包含了A的公钥哈希，它被用来验�
 
 区块具体包含:
 1. block header：
-   1. revesion
+   1. version
    2. hash of previous block header
    3. merkle root hash: 保证了body中的交易是无法篡改的
    4. target: H(block header) <= target
