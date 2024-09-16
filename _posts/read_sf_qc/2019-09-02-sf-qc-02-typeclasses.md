@@ -1,5 +1,5 @@
 ---
-title: "「SF-QC」2 TypeClasses"
+title: "文章样板"
 subtitle: "Quickcheck - A Tutorial on Typeclasses in Coq"
 layout: post
 author: "Hux"
