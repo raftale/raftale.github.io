@@ -1,3 +1,15 @@
+---
+title: "区块链技术与应用 - P11 - Q&A"
+layout: post
+author: "raftale"
+header-style: text
+hidden: false
+published: true
+tags:
+  - blockchain
+---
+
+
 1. 转账交易的时候，如果接收者不在线怎么办？
     - 转账只是记录，不需要接受者在线。
 2. 假设某全节点收到某个转账交易，有没有可能接受者的收款地址是全节点以前不曾听说过的；
