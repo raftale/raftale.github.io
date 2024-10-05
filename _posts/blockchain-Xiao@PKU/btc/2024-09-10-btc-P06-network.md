@@ -1,5 +1,5 @@
 ---
-title: "区块链技术与应用 - P06 - 网络"
+title: "区块链技术与应用 - P06 - 比特币网络"
 layout: post
 author: "raftale"
 header-style: text

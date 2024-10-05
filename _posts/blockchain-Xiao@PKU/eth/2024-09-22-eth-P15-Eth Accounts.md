@@ -63,7 +63,7 @@ Two types of accounts exist in the Ethereum system:
     - Contract Accounts also have a `nonce`, which records the number of times the contract has been invoked.
     - A contract can call another contract.
 
-## Why Ethereum use Account-Based Ledger?
+## Why Ethereum Use Account-Based Ledger?
 Ethereum is designed to support smart contracts, which require stable account addresses for execution.
 
 Therefore, the account-based ledger is more suitable than the transaction-based ledger.
