@@ -7,6 +7,7 @@ hidden: false
 published: true
 tags:
   - blockchain
+  - ETH
 ---
 # P15 - Accounts
 
