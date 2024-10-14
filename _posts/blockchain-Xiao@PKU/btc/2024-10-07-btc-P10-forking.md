@@ -14,10 +14,10 @@ tags:
 分叉定义：一条链分叉成两条链。
 产生原因：
 1. state fork：同时挖到两个区块，即节点对区块链的当前状态有分歧。
-    - forking attack: 人为故意造成 
+    - forking attack: 人为故意造成的分歧 
 2. protocol fork: 比特币协议升级造成的新旧节点分歧。
-   - hard fork
-   - soft fork
+   - hard fork：永久性的分叉，一般是扩大扩规，旧节点无法进行兼容
+   - soft fork：临时性的分叉，一般是收紧规则，旧节点可以兼容新节点的区块，但新节点可能无法兼容旧节点的区块
 
 ## hard fork
 硬分叉是永久性的。

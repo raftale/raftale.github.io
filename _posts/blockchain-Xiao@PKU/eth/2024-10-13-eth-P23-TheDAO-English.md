@@ -1,5 +1,5 @@
 ---
-title: "Blockchain-Technology-and-Application - P23 - The DAO"
+title: "Blockchain-Technology-and-Application - P23 - The DAO Incident"
 layout: post
 author: "raftale"
 header-style: text
@@ -9,7 +9,7 @@ tags:
   - blockchain
   - ETH
 ---
-# The DAO
+# The DAO Incident
 
 ## DAO
 In the previous section, we discussed the principles of **reentrancy attacks**. In this section, we will explore a real-world case that is famous in Ethereum's history and led to a split in the Ethereum network.
