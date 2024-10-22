@@ -53,7 +53,6 @@ address -> state
 ## PT
 
 trie tree，字典树
-![trie.png](../img/trie.png)
 ![trie.png](/img/in-post/trie.png)
 分叉树有时叫做branching-factor.
 
