@@ -1,5 +1,5 @@
 ---
-title: "React demo: tic-tac-toe"
+title: "React Quick Start: tic-tac-toe"
 layout: post
 author: "raftale"
 header-style: text

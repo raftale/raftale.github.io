@@ -1,5 +1,5 @@
 ---
-title: "react introduction"
+title: "React Quick Start"
 layout: post
 author: "raftale"
 header-style: text
