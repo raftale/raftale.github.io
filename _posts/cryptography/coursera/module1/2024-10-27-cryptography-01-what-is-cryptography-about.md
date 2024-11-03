@@ -1,5 +1,5 @@
 ---
-title: "Cryptography I - Section 1: What is Cryptography about?"
+title: "Cryptography I - 01: What is Cryptography about?"
 layout: post
 author: "raftale"
 header-style: text
@@ -92,63 +92,28 @@ how to break a substitution cipher?
 
 if the plaintext is `WHAT A DAY`, and the key is `CRYPTO`，so the ciphertext is `YYYI T RCP`。
 
-encrypt:
-${\displaystyle C_{i}=E_{K}(M_{i})=(M_{i}+K_{i}){\bmod {2}}6}$
+![img.png](img.png)
 
-decrypt:
-${\displaystyle M_{i}=D_{K}(C_{i})=(C_{i}-K_{i}){\bmod {2}}6,}$
+假设预先知道key的长度l，那么每隔l个字母它们的cipher是一样的，因此可以猜测出现频率最高的可能是E(毕竟我们预先知道最高的是E)，最后也就能猜测key。如果最后的message是有意义的，那就说明破解是没有问题的。
+即使我们不知道key的长度，也可以通过不断的假设key的长度，通过穷举key的长度来找到有意义的message。
 
-```java
-public class VigenereCipher {
 
-   public static void main(String[] args) {
-      String m = "WHAT A DAY".toUpperCase();
-      String key = "CRYPTO".toUpperCase();
-      String ciphertext = encrypt(m, key);
-      System.out.println(ciphertext);
-      String decrypt = decrypt(ciphertext, key);
-      System.out.println(decrypt);
-   }
+### Rotor machines(1870-1943)
+Early example: the Hebern machine (single rotor)
+![img_1.png](img_1.png)
 
-   private static String decrypt(String ciphertext, String key) {
-      StringBuilder sb = new StringBuilder(ciphertext.length());
-      for (int i = 0, j = 0; i < ciphertext.length(); i++) {
-         char c = ciphertext.charAt(i);
-         if (Character.isAlphabetic(c)) {
-            char shift = key.charAt(j);
-            char decryptedChar = unShift(c, shift);
-            sb.append(decryptedChar);
-            j = (j + 1) % key.length();
-         } else {
-            sb.append(c);
-         }
-      }
-      return sb.toString();
-   }
 
-   public static String encrypt(String plaintext, final String key) {
-      StringBuilder sb = new StringBuilder(plaintext.length());
-      for (int i = 0, j = 0; i < plaintext.length(); i++) {
-         char m = plaintext.charAt(i);
-         if (Character.isAlphabetic(m)) {
-            char c = shift(m, key.charAt(j));
-            sb.append(c);
-            j = (j + 1) % key.length();
-         } else {
-            sb.append(m);
-         }
-      }
-      return sb.toString();
-   }
+Most famous: the Enigma (3-5 rotors)
 
-   // c = (m + k) % 26
-   public static char shift(char m, char s) {
-      return (char) ((m - 'A' + s - 'A') % 26 + 'A');
-   }
+![img_2.png](img_2.png)
 
-   // m = (c - k) % 26
-   public static char unShift(char c, char s) {
-      return (char) ((c - s  + 26) % 26 + 'A');
-   }
-}
-```
+### Data Encryption Standard (1974)
+using computer
+
+DES: # keys  = 2^56, block size = 64bits
+DES is not secure today.
+
+Today: 
+1. AES(2001), # keys = 2^128
+2. Salsa20
+3. others
