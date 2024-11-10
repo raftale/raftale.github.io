@@ -38,47 +38,75 @@ what makes cipher secure?
 
 Basic idea: the cipher text should reveal no information about the plain text.
 
-shannon formulize and formally expalain what does information about the plain text actually mean.
+Shannon formulize and formally explains what does information about the plain text actually mean.
 
-definition: A cipher (E, D) over (K, M, C) has **perfect secrecy** if 
-
-${\forall} m_0, m_1 \in M, len(m0) = len(m1)$ and $\forall c \in C$
-
-$Pr[E(k, m_0) = c] = Pr[E(k, m_1) = c]$ 
-
-where the k is uniform in the key space K.
-
-if attacker have intercepted c, the probability of getting c is equally likely whether m0 is being encrypted or m1 is being encrypted.
+Shannon's definition: A cipher (E, D) over (K, M, C) has **perfect secrecy** if the following holds:
 
 
-basically what this proves is that there's no, there's no **cypher text-only attack** on a cypher that has perfect secrecy.
+- when ${\forall} m_0, m_1 \in M, len(m0) = len(m1)$ and $\forall c \in C$
 
-### one time paid security proof 
-lemma: OTP has perfect secrecy.
+- if the probability of encrypting `m0` and getting c is exactly the same as the probability of encrypting `m1` and getting c: $Pr[E(k, m_0) = c] = Pr[E(k, m_1) = c]$
+
+where the k is random variable that's uniformly in the key space K.
+
+that means:
+
+if a attacker have intercepted a particular cipher text `c`, then in reality, the probability that the cipher text is the encryption of `m0` is exactly the same as the probability that's encryption of `m1`.
+
+so you can't deduce the plaintext behind it based on the cipher text.
+
+basically what this proves is that there's no **cypher text-only attack** on a cypher that has perfect secrecy.
+
+### one time paid security proof
+#### how to proof
+can we build ciphers that actually have perfect secrecy?
+
+actually **one time pad has perfect secrecy**.
+ 
+let's prove it.
+
 Proof: 
-$\forall m, c: Pr[E(k, m) = c] = (\#k, k \in K, such.that. E(k, m) = c) / |K|$
 
-- #keys : number of keys
+$\forall m, c: Pr[E(k, m) = c] = \frac{|k|, k \in K, s.t. E(k, m) = c)}{|K|}$
+
+- |k| : number of keys matching condition
 - |K| : the total number of keys
 
-所以只需要证明：
-$\forall m, c, \#\{k \in K, E(k, m) = c\} = const$
 
-就能证明perfect secrecy。
+so $\forall m, c, \{|k|, k \in K, s.t. E(k, m) = c)\} = const$
 
-for OTP, $if(E(k, m) = c)$, => $k\oplus m = c$ => $k = m \oplus c$
+Because the denominator is the same, the numerator is the same,  therefore the probability is always the same for all `m` and `c`.
 
-=> $\#\{k \in K, E(k, m) = c\} = 1 $ , $\forall m, c$
+and if this property is true, the cipher has perfect secrecy.
 
-所以OTP has perfect secrecy.
+#### proof
+for one time pad,
 
-Shannon proved another theorem that says that in fact if a cypher has perfect secrecy, the number of keys in the cypher must be at least the number of messages that the cypher can handle
+$if(E(k, m) = c)$,
 
-|K| >= |M|
+=> $k\oplus m = c$
 
-key-len >= len-msg
+=> $k = m \oplus c$
 
-### bad news
+=> $\{|k| \in K, E(k, m) = c\} = 1 $ , $\forall m, c$
+
+so one time pad has perfect secrecy.
+
+But, in fact, the one time pad is actually not such a secure cipher, there are other attacks that are possible.
+
+it has perfect secrecy, does not mean that the one time pad is the secure cypher to use.
+
+
+#### long keys
+
+one time pad had really long keys and so the obvious question is are there other ciphers that has perfect secrecy and possibly have much, much shorter keys?
+
+the bad news is the Shannon proved another theorem that says that in fact if a cipher has perfect secrecy, the number of keys in the cipher must be at least the number of messages that the cipher can handle.
+
+that means |K| >= |M|
+
+=> len(key) >= len(msg)
+
 unfortunately, it's very difficult to use in practice, because the keys is essentially as long as message.
 
 
