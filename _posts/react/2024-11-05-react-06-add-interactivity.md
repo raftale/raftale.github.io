@@ -144,9 +144,6 @@ root.render(<Image />);
 如果component对state有更新，就需要重新进行render。
 
 
-
-
-
 React does not touch the DOM if the rendering result is the same as last time。
 
 
@@ -164,12 +161,130 @@ export default function Clock({ time }) {
 }
 ```
 
-
-
 You can use Strict Mode to find mistakes in your components
 
 
+## State as a Snapshot and Queueing a Series of State Updates
+
+state behaves more like a snapshot。setting it does not change the state variable you already have, but instead triggers a re-render.
 
 
 
-## State as a Snapshot
+let me give you an example:
+
+```javascript
+import { useState } from 'react';
+
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    <>
+    <h1>{number}</h1>
+    <button onClick={() => {
+    console.log(number);
+    setNumber(number + 5);
+    console.log(numer);
+    alert(number);
+  }}>+5</button>
+  </>
+)
+```
+
+`setNumber(number + 5)`前后`console.log(number)`显示都是0。
+
+这样的另外一个原因是React会等到事件中的所有代码处理完之后再更新状态。
+
+如果要同时多次更新state：
+
+```javascript
+import { useState } from 'react';
+
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    <>
+    <h1>{number}</h1>
+    <button onClick={() => {
+    setNumber(n => n + 1);
+    console.log(number)
+    setNumber(n => n + 1);
+    console.log(number)
+    setNumber(n => n + 1);
+    console.log(number)
+  }}>+3</button>
+  </>
+)
+}
+```
+
+`n => n + 1`是一个`updater function`，这意味着：React会将状态更新加入到队列中，在下次render的时候遍历queue实现状态更新。
+
+
+
+recap：
+
+- Setting state does not change the variable in the existing render, but it requests a new render.
+- React processes state updates after event handlers have finished running. This is called batching.
+- To update some state multiple times in one event, you can use `setNumber(n => n + 1)` updater function.
+
+
+
+## Updating Objects in State
+
+根据React不变性的原则，修改对象的内容时是用新的对象去做替代。
+
+```javascript
+setPerson({
+  firstName: e.target.value, // New first name from the input
+  lastName: person.lastName,
+  email: person.email
+});
+```
+
+spread syntax可以实现copy object。
+
+```javascript
+setPerson({
+  ...person, // Copy the old fields
+  firstName: e.target.value // But override this one
+});
+```
+
+
+
+how to update a nested object?
+
+
+
+```javascript
+const [person, setPerson] = useState({
+  name: 'Niki de Saint Phalle',
+  artwork: {
+    title: 'Blue Nana',
+    city: 'Hamburg',
+    image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+  }
+});
+
+setPerson({
+  ...person, // Copy other fields
+  artwork: { // but replace the artwork
+    ...person.artwork, // with the same one
+    city: 'New Delhi' // but in New Delhi!
+  }
+});
+```
+
+
+
+## Update Arrays in State
+
+同样的，array也是不可变性质的，不要直接修改数组，而是copy一份。
+
+copy array的方法：
+
+1. concat, [...arr]
+2. filter, slice
+3. map
