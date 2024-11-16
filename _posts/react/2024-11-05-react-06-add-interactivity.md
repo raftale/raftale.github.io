@@ -1,3 +1,15 @@
+---
+title: "react - add interactively"
+layout: post
+author: "raftale"
+header-style: text
+hidden: false
+published: true
+tags:
+- react
+---
+
+
 ## Responding to Events
 
 ```javascript

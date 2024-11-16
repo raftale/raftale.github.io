@@ -1,4 +1,13 @@
-
+---
+title: "react installation"
+layout: post
+author: "raftale"
+header-style: text
+hidden: false
+published: true
+tags:
+- react
+---
 
 How to start a new React project
 

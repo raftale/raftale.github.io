@@ -1,5 +1,15 @@
-# Your First Component
+---
+title: "react - describing the UI"
+layout: post
+author: "raftale"
+header-style: text
+hidden: false
+published: true
+tags:
+- react
+---
 
+# Your First Component
 
 Component names must start with a capital letter or they won’t work!
 
