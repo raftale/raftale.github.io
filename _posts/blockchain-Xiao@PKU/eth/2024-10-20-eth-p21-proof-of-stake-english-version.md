@@ -15,13 +15,13 @@ tags:
 ## Electrical Energy of Pow
 
 1. [Bitcoin Electrical Energy Consumption:](https://digiconomist.net/bitcoin-energy-consumption): 172 terawatt-hours (TWh) per year, equivalent to Poland’s annual electricity consumption.
-2. [Bitcoin Electrical Energy Consumption:](https://digiconomist.net/ethereum-energy-consumption): 93 TWh per year when using proof-of-work(POW).
+2. [Bitcoin Electrical Energy Consumption:](https://digiconomist.net/ethereum-energy-consumption): 93 TWh per year when using **proof-of-work**(POW) before switching to **proof-of-stake**(POS).
 
 > 1Twh = 10^9 Kwh
 
 ## Description of Proof of stake
 
-In POW, mining equipment is purchased with external currency, and the miner's computational power is essentially determined by how much money they spend. In contrast, proof-of-stake skips mining equipment and directly stakes tokens for voting to reach consensus, which is sometimes referred to as **virtual mining**.
+In POW, mining equipment is purchased with external currency, and the miner's computational power is essentially determined by how much money they spend. In contrast, **proof-of-stake** skips mining equipment and directly stakes tokens for voting to reach consensus, which is sometimes referred to as **virtual mining**.
 
 Coin distribution with proof-of-stake involves:
 1. Reserving some coins for developers.
@@ -127,13 +127,13 @@ Each Validator has a specific term limit; upon expiry, they enter a waiting peri
 ### Security
 The Casper protocol can set a `checkpoint` for a certain state of a blockchain that is mined. Is this `checkpoint` absolutely secure? In other words, can the `Finality` achieved through validator votes be overturned?
 
-If the malicious attacker is just a miner, they cannot overturn it; however, if there are a large number of `Validators` conducting a Nothing At Stake attack, it could lead to the system being tampered with.
+If the malicious attacker is just a miner, they cannot overturn it; however, if there are a large number of `Validators` conducting a `Nothing At Stake attack`, it could lead to the system being tampered with.
 
 Ethereum envisions that, over time, mining rewards will gradually decrease while proof of stake rewards will gradually increase, thus achieving the transition from POW to PoS, ultimately eliminating the need for mining of pow.
 
 ## Delegated Proof of Stake
 
-Another consensus mechanism is `DPOS`: Delegated Proof of Stake.
+Another consensus mechanism is `DPOS`: **Delegated Proof of Stake**.
 
 For instance, in EOS, 21 super nodes are selected first by a voting mechanism, and then these super nodes generate blocks.
 
@@ -142,7 +142,7 @@ For instance, in EOS, 21 super nodes are selected first by a voting mechanism, a
 Is the high electricity consumption associated with mining necessarily a negative aspect? Some argue otherwise.
 
 1. Electricity is challenging to store and transport; mining provides a means to convert electricity into currency.
-2. Unused clean energy is difficult to return to the main grid; mining with clean energy effectively helps utilize surplus electricity.
+2. Unused clean energy is difficult to return to the main grid: mining with clean energy effectively helps utilize surplus electricity.
 
 Mining’s environmental impact is limited and can drive local economic development.
 

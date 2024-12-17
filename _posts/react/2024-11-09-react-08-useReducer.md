@@ -56,7 +56,7 @@ function handleDeleteTask(taskId) {
 ```
 现在我们用reducer来进行优化:
 
-```js
+```jsx
 import { useReducer } from 'react';
 import AddTask from './AddTask.js';
 import TaskList from './TaskList.js';
